@@ -2,7 +2,7 @@ services:
   - type: web
     name: community-connect-backend
     runtime: node
-    buildCommand: npm run build:backend
+    buildCommand: npm install && npm run build:backend
     startCommand: npm start
     envVars:
       - key: NODE_ENV
