@@ -1,5 +1,6 @@
 {
   "name": "rest-express",
+  "homepage": "https://dpandey1105.github.io/Community-Connect",
   "version": "1.0.0",
   "type": "module",
   "license": "MIT",
@@ -7,13 +8,14 @@
     "dev": "npx concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "set NODE_ENV=development&& set PORT=5000&& node backend/index.js",
     "dev:client": "vite",
-    "build":"cross-env NODE_ENV=production&& vite build && esbuild backend/index.js --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "cross-env NODE_ENV=production&& vite build && esbuild backend/index.js --platform=node --packages=external --bundle --format=esm --outdir=dist babel src -d dist || tsc",
     "build:frontend": "vite build",
     "build:backend": "npx esbuild backend/index.js --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "start": "set PORT=5000&& cross-env NODE_ENV=production node dist/index.js",
     "deploy:frontend": "npm run build:frontend && gh-pages -d dist/public",
     "deploy:backend": "npm run build:backend",
-    "test": "jest"
+    "test": "jest",
+    "start:prod": "node server.js"
   },
   "jest": {
     "testEnvironment": "node",
