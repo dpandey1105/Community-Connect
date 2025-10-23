@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "./project-card";
+import { API_BASE_URL } from "@/lib/config";
 
 import { useLocation } from "wouter";
 
@@ -14,7 +15,7 @@ export default function FeaturedProjects() {
   const { data, isLoading } = useQuery({
     queryKey: ['/api/projects', searchParams.toString()],
     queryFn: async () => {
-      const res = await fetch(`/api/projects?${searchParams.toString()}`);
+      const res = await fetch(`${API_BASE_URL}/api/projects?${searchParams.toString()}`);
       return res.json();
     },
     enabled: true,

@@ -16,9 +16,9 @@
 - ✅ Frontend serves correctly (status 200)
 
 ## Remaining Tasks
-- [ ] Deploy frontend to GitHub Pages
-- [ ] Deploy backend to Render
-- [ ] Set up environment variables in production
+- [x] Deploy frontend to GitHub Pages (completed via npm run deploy:frontend)
+- [x] Deploy backend to Render (fixed build command, pushed to GitHub)
+- [ ] Set up environment variables in production (MONGODB_URI in Render dashboard)
 - [ ] Test live deployments
 - [ ] Verify no console errors in browser
 

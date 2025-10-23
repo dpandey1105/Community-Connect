@@ -1,4 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
+import { API_BASE_URL } from "./config";
 
 async function throwIfResNotOk(res) {
   if (!res.ok) {
@@ -31,7 +32,10 @@ export async function apiRequest(method, url, data) {
     console.log('Request method:', method);
   }
 
-  const res = await fetch(url, {
+  // Prepend API base URL if URL doesn't already include it
+  const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`;
+
+  const res = await fetch(fullUrl, {
     method,
     headers,
     body: data ? JSON.stringify(data) : undefined,

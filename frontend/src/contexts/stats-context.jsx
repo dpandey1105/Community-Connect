@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { API_BASE_URL, WS_BASE_URL } from '@/lib/config';
 
 const StatsContext = createContext();
 
@@ -9,7 +10,7 @@ export function StatsProvider({ children }) {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const response = await fetch('/api/stats');
+        const response = await fetch(`${API_BASE_URL}/api/stats`);
         const data = await response.json();
         setStats(data.stats);
       } catch (error) {
@@ -21,8 +22,8 @@ export function StatsProvider({ children }) {
     fetchStats();
 
     // Only connect WebSocket in production or when explicitly needed
-    if (process.env.NODE_ENV === 'production') {
-      const ws = new WebSocket('ws://localhost:5000');
+    if (import.meta.env.PROD) {
+      const ws = new WebSocket(WS_BASE_URL);
 
       ws.onopen = () => {
         console.log('WebSocket connected for stats');
