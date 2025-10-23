@@ -16,7 +16,15 @@ const app = express();
 
 // Connect to MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/community-connect";
-storage.connect(MONGODB_URI).then(() => {
+
+// Add connection options for production
+const mongooseOptions = process.env.NODE_ENV === 'production' ? {
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+  maxPoolSize: 10,
+} : {};
+
+storage.connect(MONGODB_URI, mongooseOptions).then(() => {
   log("Connected to MongoDB");
 }).catch((err) => {
   log(`MongoDB connection error: ${err}`);

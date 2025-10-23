@@ -30,9 +30,9 @@ export class MongoStorage {
     this.activeVolunteers = new Set();
   }
 
-  async connect(uri) {
+  async connect(uri, options = {}) {
     if (this.connected) return;
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, options);
     this.connected = true;
   }
 

@@ -249,9 +249,9 @@ var MongoStorage = class {
     this.connected = false;
     this.activeVolunteers = /* @__PURE__ */ new Set();
   }
-  async connect(uri) {
+  async connect(uri, options = {}) {
     if (this.connected) return;
-    await mongoose2.connect(uri);
+    await mongoose2.connect(uri, options);
     this.connected = true;
   }
   // User operations
@@ -1071,6 +1071,7 @@ var vite_config_default = defineConfig({
   plugins: [
     react()
   ],
+  base: process.env.NODE_ENV === "production" ? "/Community-Connect/" : "/",
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
@@ -1187,7 +1188,12 @@ import compression from "compression";
 dotenv2.config();
 var app = express2();
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/community-connect";
-storage.connect(MONGODB_URI).then(() => {
+var mongooseOptions = process.env.NODE_ENV === "production" ? {
+  serverSelectionTimeoutMS: 5e3,
+  socketTimeoutMS: 45e3,
+  maxPoolSize: 10
+} : {};
+storage.connect(MONGODB_URI, mongooseOptions).then(() => {
   log("Connected to MongoDB");
 }).catch((err) => {
   log(`MongoDB connection error: ${err}`);

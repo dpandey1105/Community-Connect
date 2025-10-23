@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
   ],
+  base: process.env.NODE_ENV === 'production' ? '/Community-Connect/' : '/',
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
