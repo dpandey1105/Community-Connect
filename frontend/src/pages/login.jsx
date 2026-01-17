@@ -7,7 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { loginSchema } from "@shared/schema";
+import { loginSchema } from "../schema";
 import { useAuth } from "@/hooks/use-auth";
 import { Handshake, ArrowLeft } from "lucide-react";
 
