@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { insertUserSchema } from "@shared/schema";
+import { insertUserSchema } from "../schema";
 import { useAuth } from "@/hooks/use-auth";
 import { Handshake, ArrowLeft, User, Building2 } from "lucide-react";
 
