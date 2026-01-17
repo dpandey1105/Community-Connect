@@ -1,0 +1,22 @@
+{
+  "name": "community-connect-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "bcryptjs": "^3.0.2",
+    "multer": "^2.0.2",
+    "compression": "^1.8.1",
+    "ws": "^8.18.3",
+    "nanoid": "^5.1.5",
+    "zod": "^3.24.2",
+    "zod-validation-error": "^3.4.0"
+  }
+}
