@@ -11,9 +11,7 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Copy environment files
-COPY .env.docker .env
-COPY frontend/.env.docker frontend/.env.production
+# Don't overwrite .env.production - it's already copied
 
 # Build the application
 RUN npm run build
