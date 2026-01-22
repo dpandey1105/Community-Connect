@@ -25,8 +25,8 @@ storage.connect(MONGODB_URI).then(() => {
 
 // CORS configuration
 app.use(cors({
-   origin: process.env.NODE_ENV === 'production'
-    ? process.env.FRONTEND_URL
+  origin: process.env.NODE_ENV === 'production'
+    ? [process.env.FRONTEND_URL, 'http://localhost:5222', 'http://127.0.0.1:5222']
     : ['http://localhost:5173', 'http://localhost:5176', 'http://127.0.0.1:5173', 'http://127.0.0.1:5176'],
   credentials: true
 }));
@@ -87,10 +87,10 @@ app.use(compression());
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
+  // Other ports are firewalled. Default to 5222 if not specified.
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '10000', 10);
+  const port = parseInt(process.env.PORT || '5222', 10);
   server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });

@@ -1,4 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
+import { buildApiUrl } from "./config.js";
 
 async function throwIfResNotOk(res) {
   if (!res.ok) {
@@ -8,6 +9,8 @@ async function throwIfResNotOk(res) {
 }
 
 export async function apiRequest(method, url, data) {
+  // Build full URL for API requests
+  const fullUrl = url.startsWith('/api/') ? buildApiUrl(url.replace('/api/', '')) : url;
   const token = localStorage.getItem('authToken');
   const headers = {};
 
@@ -21,17 +24,17 @@ export async function apiRequest(method, url, data) {
     console.log('Token from localStorage:', token ? 'Present' : 'Missing');
     console.log('Token length:', token?.length || 0);
     console.log('Token first 20 chars:', token?.substring(0, 20) + '...');
-    console.log('Request URL:', url);
+    console.log('Request URL:', fullUrl);
     console.log('Request method:', method);
     console.log('Headers being sent:', Object.keys(headers));
   } else {
     console.log('=== CLIENT AUTH DEBUG ===');
     console.log('ERROR: No token found in localStorage');
-    console.log('Request URL:', url);
+    console.log('Request URL:', fullUrl);
     console.log('Request method:', method);
   }
 
-  const res = await fetch(url, {
+  const res = await fetch(fullUrl, {
     method,
     headers,
     body: data ? JSON.stringify(data) : undefined,
@@ -55,6 +58,9 @@ export function getQueryFn(options) {
       }
     }
 
+    // Build full URL for API requests
+    const fullUrl = url.startsWith('/api/') ? buildApiUrl(url.replace('/api/', '')) : url;
+
     const token = localStorage.getItem('authToken');
     const headers = {};
 
@@ -62,7 +68,7 @@ export function getQueryFn(options) {
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const res = await fetch(url, {
+    const res = await fetch(fullUrl, {
       credentials: "include",
       headers,
     });

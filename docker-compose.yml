@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5222:5222"
+    env_file:
+      - .env.docker
+    environment:
+      - NODE_ENV=production
+      - PORT=5222
+      - MONGODB_URI=mongodb://mongo:27017/community-connect
+      - FRONTEND_URL=http://localhost:5222
+    depends_on:
+      - mongo
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=community-connect
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
+
+networks:
+  app-network:
+    driver: bridge
